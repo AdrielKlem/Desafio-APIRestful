@@ -2,7 +2,7 @@ import { Container } from "./styles"
 
 export function Section({ title, children }) {
     if (title) {
-        title = `<h2>${title}</h2>`
+        title = `${title}`
     } else {
         title = ''
     }
@@ -10,7 +10,7 @@ export function Section({ title, children }) {
 
     return (
         <Container>
-            {title}
+            <h2>{title}</h2>
             { children }
         </Container>
     )

@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
 import { Textarea } from "../../components/Textarea"
@@ -10,6 +12,18 @@ import { BsArrowLeftShort } from 'react-icons/bs'
 import { Container, Form, InputArea } from "./styles";
 
 export function New() {
+    const [tags, setTags] = useState([])
+    const [newTag, setNewTag] = useState("")
+
+    function handleAddTag() {
+        setTags(prevState => [...prevState, newTag])
+        setNewTag("")
+    }
+
+    function handleRemoveTag(deleted) {
+        setTags(prevState => prevState.filter(tag => tag !== deleted))
+    }
+
     return(
         <Container>
             <Header />
@@ -30,8 +44,22 @@ export function New() {
                     </Section>
                     <Section title="Marcadores">
                         <div className="tags">
-                            <NoteItem value="react" />
-                            <NoteItem isnew />
+                            {
+                                tags.map((tag, index) => (
+                                    <NoteItem 
+                                        key={String(index)}
+                                        value={tag}
+                                        onClick={() =>  handleRemoveTag(tag)}
+                                    />
+                                ))
+                            }
+                                <NoteItem 
+                                    isnew
+                                    placeholder="Novo Tag"
+                                    value={newTag}
+                                    onChange={event => setNewTag(event.target.value)}
+                                    onClick={handleAddTag}
+                                />
                         </div>
                     </Section>
 

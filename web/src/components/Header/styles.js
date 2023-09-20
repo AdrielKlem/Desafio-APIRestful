@@ -22,14 +22,19 @@ export const Container = styled.header`
     z-index: 1; */
 `
 
-export const Profile = styled(Link)`
+export const Profile = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
 
-    > img {
+    > a {
         width: 64px;
         height: 64px;
+    }
+    
+    img {
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
     }
 

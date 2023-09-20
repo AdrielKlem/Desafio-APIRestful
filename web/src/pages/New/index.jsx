@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { api } from "../../services/api"
 
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
@@ -6,14 +7,20 @@ import { Textarea } from "../../components/Textarea"
 import { NoteItem } from "../../components/NoteItem"
 import { Section } from "../../components/Section"
 import { Button } from "../../components/Button"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { Container, Form, InputArea } from "./styles";
 
 export function New() {
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [rating, setRating] = useState("")
+
     const [tags, setTags] = useState([])
     const [newTag, setNewTag] = useState("")
+
+     const navigate = useNavigate()
 
     function handleAddTag() {
         setTags(prevState => [...prevState, newTag])
@@ -22,6 +29,31 @@ export function New() {
 
     function handleRemoveTag(deleted) {
         setTags(prevState => prevState.filter(tag => tag !== deleted))
+    }
+
+    async function handleNewNote() {
+        await api.post("/notes", {
+            title,
+            rating,
+            description,
+            tags
+        })
+
+        alert("nota criada com sucesso")
+        
+        navigate(-1)
+    }
+
+    function handleRemoveNote(tags) {
+        const title = document.querySelector("#title")
+        const rating = document.querySelector("#numberstar")
+        const description = document.querySelector("#textarea")
+       
+        tags.map((tag) =>  handleRemoveTag(tag))
+        
+        title.value = ""
+        rating.value = ""
+        description.value = ""
     }
 
     return(
@@ -37,9 +69,21 @@ export function New() {
 
                     <Section title="Informações">
                         <InputArea>
-                            <Input placeholder="Título" id="title" />
-                            <Input placeholder="Sua nota (de 0 a 5)" id="numberstar" />
-                            <Textarea placeholder="Observações" id="textarea"/>
+                            <Input
+                                placeholder="Título"
+                                id="title"
+                                onChange={event => setTitle(event.target.value)}
+                                />
+                            <Input
+                                placeholder="Sua nota (de 0 a 5)"
+                                id="numberstar"
+                                onChange={event => setRating(event.target.value)}
+                                />
+                            <Textarea 
+                                placeholder="Observações"
+                                id="textarea"
+                                onChange={event => setDescription(event.target.value)}
+                            />
                         </InputArea>
                     </Section>
                     <Section title="Marcadores">
@@ -64,8 +108,14 @@ export function New() {
                     </Section>
 
                     <div className="buttons">
-                        <Button title="Excluir filme" />
-                        <Button title="Salvar alterações" />
+                        <Button 
+                            title="Excluir filme"
+                            onClick={e => handleRemoveNote(tags)}
+                        />
+                        <Button
+                            title="Salvar alterações"
+                            onClick={handleNewNote}
+                        />
                     </div>
                 </Form>
             </main>

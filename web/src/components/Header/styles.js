@@ -42,7 +42,7 @@ export const Profile = styled.div`
        display: flex;
         flex-direction: row-reverse;
         line-height: 24px;
-        width: 100px;
+        width: min-content;
         flex-wrap: wrap;
 
         span {

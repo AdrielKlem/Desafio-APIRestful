@@ -5,11 +5,13 @@ const AppError = require("../src/utils/AppError");
 const express = require("express");
 const routes = require("./routes");
 const uploadConfig = require("./configs/upload")
+const cors = require("cors")
 
 migrationsRun();
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER))
 
@@ -31,6 +33,6 @@ app.use(( error, request, response, next ) => {
     });
 });
 
-const PORT = 3000; // Door to localize 
+const PORT = 3333; // Door to localize 
 
 app.listen(PORT/* Waiter */, () => console.log(`Server is running on Port ${PORT}`));

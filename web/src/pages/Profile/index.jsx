@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useAuth } from '../../hooks/auth'
-
 import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi'
+import { useAuth } from '../../hooks/auth'
+import { Link } from "react-router-dom"
+import { api } from '../../services/api';
+
+import avatarPlaceHolder from "../../assets/avatar_placeholder.svg"
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Container, Form, Avatar } from "./styles"
-import { Link } from "react-router-dom"
 
 export function Profile() {
     const { user, updateProfile } = useAuth()
@@ -14,6 +16,11 @@ export function Profile() {
     const [email, setEmail] = useState(user.email)
     const [passwordOld, setPasswordOld] = useState()
     const [passwordNew, setPasswordNew] = useState()
+
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}`: avatarPlaceHolder
+
+    const [avatar, setAvatar ] = useState(avatarUrl)
+    const [avatarFile, setAvatarFile ] = useState(null)
     
     async function handleUpdate() {
         const user = {
@@ -23,7 +30,15 @@ export function Profile() {
             old_password: passwordOld,
         }
 
-        updateProfile({ user })
+        updateProfile({ user, avatarFile })
+    }
+
+    function handleChangeAvatar(event) {
+        const file = event.target.files[0]
+        const ImagePreview = URL.createObjectURL(file)
+
+        setAvatarFile(file)
+        setAvatar(ImagePreview)
     }
 
     return (
@@ -37,15 +52,17 @@ export function Profile() {
             <Form>
                 <Avatar>
                     <img 
-                    src="https://github.com/AdrielKlem.png" 
-                    alt="Foto do usuário" />
+                    src={avatar}
+                    alt={"Foto do "+user.name} />
 
                     <label htmlFor="avatar">
                         <FiCamera />
 
                         <input 
                         id='avatar'
-                        type="file" />
+                        type="file"
+                        onChange={handleChangeAvatar}
+                        />
                     </label>
                 </Avatar>
                 <Input 

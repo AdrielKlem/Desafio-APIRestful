@@ -32,6 +32,24 @@ export function New() {
     }
 
     async function handleNewNote() {
+        const numberRating = Number(rating)
+
+        if(!title) {
+            return alert("Digite o título da nota")
+        }
+        
+        if(!rating) {
+            return alert("Você deixou o Rating vazio")
+        } 
+
+        if (numberRating > 5 || numberRating < 0) {
+            return alert("Você deixou o Rating como valor incorreto")
+        }     
+        
+        if(newTag) {
+           return alert("Você deixou um TAG no campo para adicionar. Clique para adicionar ou deixe vazio.")
+        }
+
         await api.post("/notes", {
             title,
             rating,

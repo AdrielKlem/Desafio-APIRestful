@@ -9,7 +9,6 @@ export function NoteItem({ isnew, value, onClick, ...rest }) {
             value={value}
             readOnly={!isnew}
             {...rest}
-            placeholder={isnew ? "Novo marcador" : ""}
             />
             <button 
                 type="button"

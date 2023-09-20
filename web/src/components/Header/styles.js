@@ -46,6 +46,7 @@ export const Profile = styled.div`
         flex-wrap: wrap;
 
         span {
+            cursor: pointer;
             font-size: 14px;
             color: ${({ theme }) => theme.COLORS.GRAY_100};
         }

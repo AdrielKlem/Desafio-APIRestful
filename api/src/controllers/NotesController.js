@@ -6,10 +6,6 @@ class NotesController {
         const { title, description, rating, tags } = request.body;
         const user_id = request.user.id
 
-        if(rating > 5 || rating < 1 ) {
-            throw new AppError("Rating o tem que possuir um valor entre 1 e 5")
-        }
-
         const [movie_note_id] = await knex("movie_notes").insert({
             title,
             description,
@@ -20,8 +16,8 @@ class NotesController {
         const tagsInsert = tags.map(name => {
             return {
                 movie_note_id,
-                user_id,
-                name
+                name,
+                user_id
             }
         });
 

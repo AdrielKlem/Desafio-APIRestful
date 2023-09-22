@@ -6,6 +6,7 @@ import { BsArrowLeftShort, BsFillClockFill } from 'react-icons/bs'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Header } from "../../components/Header"
+import { Button } from "../../components/Button"
 import { Section } from "../../components/Section"
 import { Tag } from "../../components/Tag"
 import { Star } from "../../components/Star"
@@ -84,6 +85,9 @@ export function Details() {
           {data.description}
         </p>  
         </Section>
+        <Button 
+        title="Remover nota"
+        />
       </Content>
     </main>
       }

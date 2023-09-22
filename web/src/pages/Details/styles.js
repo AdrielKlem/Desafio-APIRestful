@@ -35,7 +35,8 @@ export const Links = styled.ul`
 
 export const Content = styled.div`
     margin: 0 auto;
-
+    
+    
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -56,6 +57,11 @@ export const Content = styled.div`
             font-size: 20px;
             color: ${({ theme }) => theme.COLORS.PINK};
         }
+    }
+
+    button {
+        max-width: 550px;
+        margin: 10px auto;
     }
 
     p {

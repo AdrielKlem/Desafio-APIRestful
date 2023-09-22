@@ -24,7 +24,6 @@ export function Home() {
 
     useEffect(() => {
         async function fetchNotes() {
-            // const response = await api.get(`/notes?title=${search}`)
             const response = await api.get(`notes/?user_id=${user.id}&title`)
             setNotes(response.data)
         }
@@ -48,6 +47,7 @@ export function Home() {
 
             <Content>
                 <Section>
+                    {console.log(notes)}
                     {
                         notes.map(note => (
                             <Note 

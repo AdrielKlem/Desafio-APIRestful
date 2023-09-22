@@ -30,7 +30,9 @@ export function Profile() {
             old_password: passwordOld,
         }
 
-        updateProfile({ user, avatarFile })
+        const userUpdated = Object.assign(user, updated)
+
+        updateProfile({ user: userUpdated, avatarFile })
     }
 
     function handleChangeAvatar(event) {

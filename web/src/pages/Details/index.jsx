@@ -26,7 +26,7 @@ export function Details() {
               <h1>
                 Interestellar
               </h1>
-              <Star numberstar={5} />
+              <Star rating={4} />
             </div>
             <div className="status">
                 <img src="https://github.com/AdrielKlem.png" alt="Foto do usuário" />

@@ -47,7 +47,6 @@ export function Home() {
 
             <Content>
                 <Section>
-                    {console.log(notes)}
                     {
                         notes.map(note => (
                             <Note 

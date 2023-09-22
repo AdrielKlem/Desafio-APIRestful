@@ -48,7 +48,7 @@ export const Content = styled.div`
         gap: 16px;
         padding: 0 124px;
 
-        > a {
+        > div {
             display: flex;
             align-items: center;
             gap: 8px;

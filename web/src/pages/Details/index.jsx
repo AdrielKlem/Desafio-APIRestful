@@ -24,6 +24,15 @@ export function Details() {
     navigate(-1)
   }
 
+  async function handleRemove() {
+    const confirm = window.confirm("Deseja apagar a nota?")
+
+    if (confirm) {
+      await api.delete(`/notes/${params.id}`)
+      navigate(-1)
+    }
+  }
+
   useEffect(() => {
     async function fetchNote() {
       const response = await api.get(`/notes/${params.id}`)
@@ -87,6 +96,7 @@ export function Details() {
         </Section>
         <Button 
         title="Remover nota"
+        onClick={handleRemove}
         />
       </Content>
     </main>

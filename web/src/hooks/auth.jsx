@@ -25,7 +25,7 @@ function AuthProvider({ children }) {
         }
     }
 
-    function signOut({}) {
+    function signOut() {
         const token = localStorage.removeItem("@rocketmovies:token")
         const user = localStorage.removeItem("@rocketmovies:user")
 

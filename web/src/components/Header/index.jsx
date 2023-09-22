@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
 import { api } from '../../services/api';
 import { FiSearch } from 'react-icons/fi'
@@ -9,8 +10,13 @@ import { Input } from '../Input';
 
 export function Header() {
     const { signOut, user } = useAuth()
-
+    const navigate = useNavigate()
     const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceHolder
+
+    function handleSignOut() {
+        navigate("/")
+        signOut()
+    }
 
     return(
         <Container>
@@ -21,7 +27,7 @@ export function Header() {
             <Profile>
                 <div>
                     <strong>{user.name}</strong>
-                    <span onClick={signOut}>Sair</span>
+                    <span onClick={handleSignOut}>Sair</span>
                 </div>
                 <a href="/profile">
                     <img
